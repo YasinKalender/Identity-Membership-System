@@ -1,0 +1,100 @@
+﻿@model TwoFactorLoginModel
+
+@{
+    ViewData["Title"] = "TwoFactorLogin";
+}
+
+<h1>Two Factor Login</h1>
+<hr />
+
+<form action="TwoFactorLogin" method="post">
+
+
+    <div class="form-group">
+        <label>Access Key</label>
+        <input type="text" name="AccessKey" class="form-control" />
+
+    </div>
+
+    <div class="form-group">
+
+        <input type="checkbox" name="RememberMe" />Beni Hatırla
+    </div>
+
+    @if (Model.TwoFactorAuth == TwoFactorAuth.GoogleAnMicrosoft)
+    {
+        <div class="form-group">
+            <label>Recover Code</label>
+            <input type="checkbox" name="RecoverCode" asp-for="RecoverCode" />
+        </div>
+
+    }
+
+    @if (Model.TwoFactorAuth == TwoFactorAuth.Email || Model.TwoFactorAuth == TwoFactorAuth.Telephone)
+    {
+        <div class="alert alert-success">
+            <span class="text-success" id="minutes"></span>
+            <span class="text-success" id="seconds"></span>
+
+        </div>
+
+    }
+
+
+    @if (Model.TwoFactorAuth == TwoFactorAuth.Email)
+    {
+
+        <input class="btn btn-primary" type="button" id="sendEmail" value="Tekrar email gönder" />
+    }
+
+    <input type="submit" value="Submit" class="btn btn-primary" />
+</form>
+
+@section Scripts{
+
+    <script>
+
+        $("#sendEmail").click(() => {
+            $.ajax({
+                type: "GET",
+                contentType: "application/json; charset=utf-8",
+                url: "./AgainSendEmail",
+                dataType: "json",
+                success: function (response) {
+                    if (response == true) {
+                        alert("Doğrulama kodu tekrar email adresinize gönderilmiştir.")
+                    }
+                    else {
+                        alert("Bir hata meydana geldi")
+                    }
+                },
+                error: function () {
+                    alert("Bir hata meydana geldi");
+                }
+            })
+        })
+
+
+        $(document).ready(() => {
+            var timeLeft = parseInt("@ViewBag.left");
+            function makeTimer() {
+                //80  1:20 saniye
+                //40  0:40 saniye
+                var minutes = Math.floor(timeLeft / 60);
+                var seconds = Math.floor(timeLeft - (minutes * 60));
+                if (minutes < 10) { minutes = "0" + minutes };
+                if (seconds < 10) { seconds = "0" + seconds };
+                $("#minutes").html(minutes);
+                $("#seconds").html(seconds);
+                timeLeft--
+                if (timeLeft == 0) {
+                    window.location.href = "/Home/Login";
+                }
+            }
+            makeTimer();
+            setInterval(() => makeTimer(), 1000);
+        });
+
+    </script>
+
+}

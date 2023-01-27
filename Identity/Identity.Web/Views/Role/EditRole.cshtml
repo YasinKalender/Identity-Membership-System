@@ -1,0 +1,23 @@
+﻿@model AppRole
+@{
+    ViewData["Title"] = "EditRole";
+}
+
+<h1>Edit Role</h1>
+
+
+@using (Html.BeginForm("EditRole", "Role", FormMethod.Post))
+{
+
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <input type="hidden" name="@Model.Id">
+
+    <div class="form-group">
+        <label for="exampleInputEmail1">Role Name</label>
+        <input type="text" class="form-control" asp-for="Name">
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+}
+

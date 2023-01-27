@@ -1,0 +1,65 @@
+﻿@model AuthViewModel
+
+@{
+    ViewData["Title"] = "TwoFactorAuthenticator";
+}
+
+<h1>Two Factor Authenticator</h1>
+<br />
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="alert alert-info">1.Adım: Aşağıdaki barkodu telefonunuzdaki Google/Microsoft uygulamasına tanıtınız veya aşağıda ki kodu telfonunuza giriniz..<</div>
+
+        <strong class="text-danger">Key:</strong>
+        <strong class="text-black">@Model.SharedKey</strong>
+        <br />
+
+        <div id="qrcode"></div>
+
+        <div class="alert alert-info mt-3">
+            2.Adım: Telefonunuzdaki kodu giriniz..
+
+            <form asp-action="TwoFactorAuthenticator" method="post">
+                <input type="hidden" name="AuthenticationUri" />
+                <input type="hidden" name="SharedKey" />
+
+                <div class="form-group">
+                    <input type="text" name="AccessKey" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Aktif Et" class="btn btn-primary" />
+                </div>
+
+
+            </form>
+
+        </div>
+
+    </div>
+</div>
+
+@section Scripts{
+
+    <script>
+
+        var uri = '@Model.AuthenticationUri';
+
+        new QRCode(document.getElementById("qrcode"), {
+            text: uri,
+            width: 128,
+            height: 128,
+            colorDark: "#000000",
+            colorLight: "#ffffff",
+            correctLevel: QRCode.CorrectLevel.H
+        });
+
+
+    </script>
+
+}
+
+
+
+
+

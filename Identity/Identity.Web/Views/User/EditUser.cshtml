@@ -1,0 +1,65 @@
+﻿@model EditUserModel
+@{
+    ViewData["Title"] = "EditUser";
+}
+
+<h1>Edit User</h1>
+
+<form asp-controller="User" asp-action="EditUser" method="post" enctype="multipart/form-data">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="form-group">
+        <label for="exampleInputEmail1">Email address</label>
+        <input type="email" class="form-control" asp-for="Email" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+        <span asp-validation-for="Email" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="exampleInputEmail1">UserName</label>
+        <input type="text" class="form-control" asp-for="Username" id="UserName" aria-describedby="Username" placeholder="Username">
+        <span asp-validation-for="Username" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="exampleInputEmail1">City</label>
+        <input type="text" class="form-control" asp-for="City" id="City" aria-describedby="City" placeholder="City">
+        <span asp-validation-for="City" class="text-danger"></span>
+
+    </div>
+    <div class="form-group">
+        <label for="exampleInputEmail1">PhoneNumber</label>
+        <input type="text" class="form-control" asp-for="PhoneNumber" id="PhoneNumber" aria-describedby="PhoneNumber" placeholder="PhoneNumber">
+        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="BirthDay">BirthDay</label>
+        <input type="date" asp-for="BirthDay" id="BirthDay" aria-describedby="BirthDay" placeholder="BirthDay">
+        <span asp-validation-for="BirthDay" class="text-danger"></span>
+    </div>
+
+    <div>
+        <div class="form-check col-md-6">
+            <input class="form-check-input" type="radio" value="true" name="Gender" id="flexRadioDefault1">
+            <label class="form-check-label" for="flexRadioDefault1">
+                Man
+            </label>
+        </div>
+
+        <div class="form-check col-md-6">
+            <input class="form-check-input" type="radio" value="false" name="Gender" id="flexRadioDefault2">
+            <label class="form-check-label" for="flexRadioDefault2">
+                Women
+            </label>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <label for="formFile" class="form-label">Picture</label>
+        <input type="file" class="form-control" asp-for="Picture" id="Picture">
+        <span asp-validation-for="Picture" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

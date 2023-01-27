@@ -1,0 +1,16 @@
+﻿@model List<string>
+@{
+    ViewData["Title"] = "ErrorPage";
+}
+
+<h1>Error Page</h1>
+<hr />
+
+<div class="alert alert-danger">
+    @foreach (var item in Model)
+    {
+        @item
+    }
+</div>
+
+

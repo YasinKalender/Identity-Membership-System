@@ -1,0 +1,40 @@
+﻿@model AuthViewModel
+
+@{
+    ViewData["Title"] = "TwoFactorAuth";
+}
+
+<h1>Two Factor Auth</h1>
+
+<div class="row">
+
+    <div class="col-md-12">
+
+        <form asp-action="TwoFactorAuth" method="post">
+
+            <div class="form-group">
+
+                <label asp-for="TwoFactorAuth" class="control-label"></label>
+                <select asp-for="TwoFactorAuth" asp-items="Html.GetEnumSelectList<TwoFactorAuth>()" class="form-control"></select>
+
+            </div>
+
+            <input type="submit" value="Güncelle" class="btn btn-secondary" />
+
+        </form>
+    </div>
+
+    @if (ViewBag.Warning != null)
+    {
+        <div class="alert alert-warning">@ViewBag.Warning</div>
+    }
+
+    @if (TempData["recoveryCodes"] != null)
+    {
+        <div class="alert alert-warning">@TempData["recoveryCodes"].ToString()</div>
+    }
+
+
+
+</div>
+
